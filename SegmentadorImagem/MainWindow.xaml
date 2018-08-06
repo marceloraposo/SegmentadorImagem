@@ -1,0 +1,70 @@
+﻿<Window x:Class="SegmentadorImagem.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SegmentadorImagem"
+        xmlns:controle="clr-namespace:SegmentadorImagem.Controles;assembly=SegmentadorImagem.Controles"
+        Icon="./resource/BarSideBySideSeries2D.png"
+        mc:Ignorable="d" WindowState="Normal" ResizeMode="NoResize"
+        Title="MainWindow" Height="350" Width="600" Background="DarkGray">
+
+    <Window.Resources>
+        <controle:EnumToBoolConverter x:Key="EBConverter" />
+    </Window.Resources>
+
+    <Grid>
+        <StackPanel>
+            <Grid Margin="5,5,10,5" Height="314">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60*" />
+                    <RowDefinition Height="270*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="170*"/>
+                    <ColumnDefinition Width="90"/>
+                    <ColumnDefinition Width="90"/>
+                    <ColumnDefinition Width="170*"/>
+                </Grid.ColumnDefinitions>
+                <TextBox Grid.Column="0" Height="30" Grid.Row="0" Text="{Binding Path=Arquivo, Mode=TwoWay}" HorizontalAlignment="Left" Width="150" Margin="5,5,0,10" Grid.ColumnSpan="2" />
+                <Button  Grid.Column="1" Height="30" Grid.Row="0" Name="btnProcurar" Content="Procurar" Click="btnProcurar_Click" Width="80" HorizontalAlignment="Center" Margin="5"/>
+                <Button  Grid.Column="2" Height="30" Grid.Row="0" Name="btnProcessar" Content="Processar" Click="btnProcessar_Click" Width="80" HorizontalAlignment="Center" Margin="5"/>
+                <GroupBox Header="Escolha o Filtro:" Grid.Column="3" Grid.Row="0" VerticalAlignment="Top">
+                    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <ComboBox Name="lstTipo" Grid.Column="0" Grid.ColumnSpan="5" VerticalAlignment="Top" Margin="10,0,0,5">
+                            <ComboBoxItem Content="Limiarização" Validation.ErrorTemplate="{x:Null}" IsSelected="{Binding Path=TipoFiltroSelecionado, Mode=TwoWay,Converter={StaticResource EBConverter},ConverterParameter={x:Static controle:TipoFiltro.Limiarizacao}}"/>
+                            <ComboBoxItem Content="Vizinhança" Validation.ErrorTemplate="{x:Null}" IsSelected="{Binding Path=TipoFiltroSelecionado, Mode=TwoWay,Converter={StaticResource EBConverter},ConverterParameter={x:Static controle:TipoFiltro.Vizinhanca}}" />
+                            <ComboBoxItem Content="Gaussiano" Validation.ErrorTemplate="{x:Null}" IsSelected="{Binding Path=TipoFiltroSelecionado, Mode=TwoWay,Converter={StaticResource EBConverter},ConverterParameter={x:Static controle:TipoFiltro.Gaussiano}}" />
+                            <ComboBoxItem Content="Media" Validation.ErrorTemplate="{x:Null}" IsSelected="{Binding Path=TipoFiltroSelecionado, Mode=TwoWay,Converter={StaticResource EBConverter},ConverterParameter={x:Static controle:TipoFiltro.Media}}" />
+                            <ComboBoxItem Content="Mediana" Validation.ErrorTemplate="{x:Null}" IsSelected="{Binding Path=TipoFiltroSelecionado, Mode=TwoWay,Converter={StaticResource EBConverter},ConverterParameter={x:Static controle:TipoFiltro.Mediana}}" />
+                            <ComboBoxItem Content="Laplaciano" Validation.ErrorTemplate="{x:Null}" IsSelected="{Binding Path=TipoFiltroSelecionado, Mode=TwoWay,Converter={StaticResource EBConverter},ConverterParameter={x:Static controle:TipoFiltro.Laplaciano}}" />
+                            <ComboBoxItem Content="Sobel" Validation.ErrorTemplate="{x:Null}" IsSelected="{Binding Path=TipoFiltroSelecionado, Mode=TwoWay,Converter={StaticResource EBConverter},ConverterParameter={x:Static controle:TipoFiltro.Sobel}}" />
+                            <ComboBoxItem Content="Prewitt" Validation.ErrorTemplate="{x:Null}" IsSelected="{Binding Path=TipoFiltroSelecionado, Mode=TwoWay,Converter={StaticResource EBConverter},ConverterParameter={x:Static controle:TipoFiltro.Prewitt}}" />
+                            <ComboBoxItem Content="Canny" Validation.ErrorTemplate="{x:Null}" IsSelected="{Binding Path=TipoFiltroSelecionado, Mode=TwoWay,Converter={StaticResource EBConverter},ConverterParameter={x:Static controle:TipoFiltro.Canny}}" /> 
+                        </ComboBox>
+                    </Grid>
+                </GroupBox>
+                <Grid Grid.Row="1" Grid.ColumnSpan="4">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Grid.Row="0" Grid.Column="0" Name="ImagePanel" Margin="5,5,5,10" Width="Auto" Height="Auto" ScrollViewer.CanContentScroll="True" Grid.RowSpan="2"></Image>
+                    <Image Grid.Row="0" Grid.Column="1" Name="ImagePanelBase"  Margin="5,5,5,10" Width="Auto" Height="Auto" ScrollViewer.CanContentScroll="True" Grid.RowSpan="2"></Image>
+                    <!--Width="Auto" Height="Auto"-->
+                </Grid>
+            </Grid>
+        </StackPanel>
+    </Grid>
+</Window>
